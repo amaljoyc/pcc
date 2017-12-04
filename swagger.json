@@ -1,0 +1,90 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "1.0.0-SNAPSHOT",
+    "version" : "v1",
+    "title" : "PCC API"
+  },
+  "basePath" : "/",
+  "schemes" : [ "http" ],
+  "paths" : {
+    "/statistics" : {
+      "get" : {
+        "summary" : "Returns the statistics of uploads in the last 60 seconds",
+        "description" : "",
+        "operationId" : "statistics",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/StatisticsDto"
+            }
+          }
+        }
+      }
+    },
+    "/upload" : {
+      "post" : {
+        "summary" : "Used to mark/report an uploadDto",
+        "description" : "",
+        "operationId" : "uploadDto",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/UploadDto"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "Success"
+          },
+          "204" : {
+            "description" : "timestamp is older than 60 secs"
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "StatisticsDto" : {
+      "type" : "object",
+      "properties" : {
+        "sum" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "avg" : {
+          "type" : "number",
+          "format" : "float"
+        },
+        "max" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "min" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "count" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "UploadDto" : {
+      "type" : "object",
+      "properties" : {
+        "count" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "timestamp" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      }
+    }
+  }
+}
